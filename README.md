@@ -21,6 +21,21 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
+pkey = WebPush::Utils.generate_vapid_pkey
+vapid_private_key = Base64.urlsafe_encode64(pkey.private_key.to_bn.to_s(2)).delete('=')
+vapid_public_key = Base64.urlsafe_encode64(pkey.public_key.to_bn.to_s(2)).delete('=')
+```
+
+```js
+serviceWorker.pushManager.subscribe({
+  userVisibleOnly: true,
+  applicationServerKey: 'VAPID Public key(ArrayBuffer, Uint8Array or ...)',
+}).then((subscription) => { ... })
+```
+
+See https://developer.mozilla.org/en/docs/Web/API/PushManager/subscribe and https://github.com/miyucy/miyucy.github.io/blob/master/push.js
+
+```ruby
 subscription = {
   endpoint: 'https://example.com/...',
   keys: {
