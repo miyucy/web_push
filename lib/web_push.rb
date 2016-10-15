@@ -58,8 +58,8 @@ class WebPush
     }.tap do |request|
       encrypted = encrypt(@p256dh, @auth, payload)
       request[:headers]['Content-Length'] = encrypted[:cipher].bytesize.to_s
-      request[:headers]['Encryption'] = 'keyid=p256dh;salt=' + urlsafe_encode64(encrypted[:salt])
-      request[:headers]['Crypto-Key'] = 'keyid=p256dh;dh=' + urlsafe_encode64(encrypted[:server_public_key])
+      request[:headers]['Encryption'] = 'salt=' + urlsafe_encode64(encrypted[:salt])
+      request[:headers]['Crypto-Key'] = 'dh=' + urlsafe_encode64(encrypted[:server_public_key])
       request[:body] = encrypted[:cipher]
 
       audience = request[:uri].scheme + "://" + request[:uri].host
