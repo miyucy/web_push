@@ -50,6 +50,10 @@ webpush.set_vapid_details('mailto:sender@example.com',
 webpush.send_notification("Payload String")
 ```
 
+## Know issue
+
+For some reason web push didn't work in the Firefox if you're using ruby < 2.3.3
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
