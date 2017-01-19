@@ -127,6 +127,11 @@ class WebPush
   end
 
   def urlsafe_decode64(bin)
-    Base64.urlsafe_decode64(bin)
+    # take from ruby v2.3.3 base64.rb
+    if !bin.end_with?("=") && bin.length % 4 != 0
+      Base64.urlsafe_decode64 bin.ljust((bin.length + 3) & ~3, "=")
+    else
+      Base64.urlsafe_decode64 bin
+    end
   end
 end
